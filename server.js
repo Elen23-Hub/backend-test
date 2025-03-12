@@ -1,9 +1,11 @@
 const express = require("express");
 const app = express();
 const bcrypt = require('bcryptjs');
+const cors = require('cors');
 
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
+app.use(cors());
 
 const database = {
     users: [
@@ -11,7 +13,7 @@ const database = {
             id: '123',
             name: 'John',
             email: 'john@gmail.com',
-            password: '',  //will be hashed
+            password: 'cookies',  //will be hashed
             entries: 0,
             joined: new Date ()
         },
@@ -19,7 +21,7 @@ const database = {
             id: '124',
             name: 'Sally',
             email: 'sally@gmail.com',
-            password: '',
+            password: 'bananas',
             entries: 0,
             joined: new Date ()
         }
@@ -62,7 +64,6 @@ app.post('/register', (req, res) => {
         id: '125',
         name: name,
         email: email,
-        password: password,
         entries: 0,
         joined: new Date ()
     })
