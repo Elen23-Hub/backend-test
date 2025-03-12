@@ -84,7 +84,7 @@ app.get('/profile/:id', (req, res) => {
     }
 })
 
-app.put('/image', (req, res) => {
+app.put('/image', (req, res) => {    //When submit on frontend, user hits this route that increases entries count
     const { id } = req.body;
     let found = false;  
     database.users.forEach(user => {
