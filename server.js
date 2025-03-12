@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const bcrypt = require('bcryptjs');
 
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
@@ -10,6 +11,7 @@ const database = {
             id: '123',
             name: 'John',
             email: 'john@gmail.com',
+            password: '',  //will be hashed
             entries: 0,
             joined: new Date ()
         },
@@ -17,6 +19,7 @@ const database = {
             id: '124',
             name: 'Sally',
             email: 'sally@gmail.com',
+            password: '',
             entries: 0,
             joined: new Date ()
         }
@@ -34,6 +37,12 @@ app.get('/', (req,res) => {
 })
 
 app.post('/signin', (req, res) => {
+    bcrypt.compare("apples", '$2b$10$sR6939RPKWO36V6.AO7fU.2xMHGi2k2R99cUrclAn23awIZgJf5tG', (err, res) => {    // res === true
+        console.log('first guess', res)
+  });
+  bcrypt.compare("not_bacon", '$2b$10$sR6939RPKWO36V6.AO7fU.2xMHGi2k2R99cUrclAn23awIZgJf5tG', (err, res) => {   // res === false
+    console.log('second guess', res)
+  });
     if (req.body.email === database.users[0].email &&
         req.body.password === database.users[0].password) {
      res.json('success');
@@ -44,6 +53,11 @@ app.post('/signin', (req, res) => {
 
 app.post('/register', (req, res) => {
     const { email, name, password} = req.body;
+    // bcrypt.genSalt(10, (err, salt) => {
+    //     bcrypt.hash(password, salt, function (err, hash) {    // Store hash in your password DB
+    //       console.log(hash);
+    //     });
+    //   });
     database.users.push({           //.push to add to the users array
         id: '125',
         name: name,
@@ -89,3 +103,14 @@ app.listen(3000, () => {
 })
     
 
+// Store hash in your password DB
+// bcrypt.genSalt(10, (err, salt) => {
+//     bcrypt.hash("B4c0/\/", salt, function (err, hash) {  
+//     });
+//   });
+
+// Load hash from your password DB
+// bcrypt.compare("B4c0/\/", hash, (err, res) => {    // res === true
+//   });
+//   bcrypt.compare("not_bacon", hash, (err, res) => {    // res === false    
+//   });
