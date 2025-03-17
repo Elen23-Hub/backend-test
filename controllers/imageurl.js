@@ -10,8 +10,8 @@ const handleApiCall = (req, res) => {
   }
   const raw = JSON.stringify({
     user_app_id: {
-      user_id: 'elen23_cyberella',
-      app_id: 'facerecognitionbrain',
+      user_id: process.env.USER_ID,
+      app_id: process.env.APP_ID,
     },
     inputs: [
       {
