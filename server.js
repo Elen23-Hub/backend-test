@@ -3,10 +3,12 @@ const app = express();
 const bcrypt = require('bcryptjs');
 const cors = require('cors');
 const knex = require('knex');
+
 const register = require('./controllers/register');
 const signin = require ('./controllers/signin');
 const profile = require ('./controllers/profile');
 const image = require ('./controllers/image');
+const imageurl = require('./controllers/imageurl'); 
 
 const db = knex({
     client: 'pg',
@@ -30,7 +32,10 @@ app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcry
 app.get('/profile/:id', (req, res) => {profile.handleProfileGet(req, res, db)})
 app.put('/image', (req,res) => {image.handleImage(req, res, db)})  //When submit on frontend, user hits this route that updates entries and increases the count
 
+// POST route for image URL
+app.post('/imageurl', (req, res) => {imageurl.handleApiCall(req, res)}) // Pass input and res to handleApiCall function
+
 
 app.listen(3000, () => {
-    console.log('app is running on port 3000')
+  console.log('app is running on port 3000')
 })
