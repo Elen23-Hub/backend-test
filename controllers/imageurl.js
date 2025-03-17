@@ -1,3 +1,4 @@
+require('dotenv').config();
 const fetch = require('node-fetch'); // Ensure fetch is available
 
 // Controller function to handle the Clarifai API request
@@ -7,17 +8,10 @@ const handleApiCall = (req, res) => {
   if (!input) {
     return res.status(400).json({ error: 'Image URL is required' });  // If no image URL is provided, return a 400 error
   }
-
-  // Clarifai API setup
-  const PAT = 'f267ee1270f74435a126fb33851fb86c';  // Your Clarifai Personal Access Token
-  const USER_ID = 'elen23_cyberella';
-  const APP_ID = 'facerecognitionbrain';
-  const MODEL_ID = 'face-detection';
-
   const raw = JSON.stringify({
     user_app_id: {
-      user_id: USER_ID,
-      app_id: APP_ID,
+      user_id: 'elen23_cyberella',
+      app_id: 'facerecognitionbrain',
     },
     inputs: [
       {
@@ -34,7 +28,7 @@ const handleApiCall = (req, res) => {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
-      'Authorization': `Key ${PAT}`,  // Your Clarifai API Key
+      'Authorization': `Key ${process.env.CLARIFAI_PAT}`,  // Your Clarifai API Key
     },
     body: raw,  // The JSON payload to send to the Clarifai API
   };
