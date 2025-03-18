@@ -21,7 +21,11 @@ const db = knex({
 
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: 'https://pythia-btyu.onrender.com',  // Update this with your frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Allow these methods
+  credentials: true  // Allow credentials like cookies (if necessary)
+}));
 
 app.get('/', (req,res) => { res.send('success')})
 app.post('/signin', (req, res) => {signin.handleSignin(req, res, db, bcrypt)})
