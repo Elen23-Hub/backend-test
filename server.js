@@ -12,13 +12,8 @@ const imageurl = require('./controllers/imageurl');
 
 const db = knex({
     client: 'pg',
-    connection: {
-      host: '127.0.0.1',
-      user: 'Eleni',
-      port: '5432',
-      password: '',
-      database: 'smartbraindb',
-    },
+    connection: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false } // Important for secure connection on Render
   });
 
 
