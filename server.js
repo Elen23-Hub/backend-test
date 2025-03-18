@@ -10,6 +10,8 @@ const profile = require ('./controllers/profile');
 const image = require ('./controllers/image');
 const imageurl = require('./controllers/imageurl'); 
 
+const PORT = process.env.PORT || 3000; // Use Render's port or 3000 for local
+
 const db = knex({
     client: 'pg',
     connection: process.env.DATABASE_URL,
@@ -31,6 +33,6 @@ app.put('/image', (req,res) => {image.handleImage(req, res, db)})  //When submit
 app.post('/imageurl', (req, res) => {imageurl.handleApiCall(req, res)}) // Pass input and res to handleApiCall function
 
 
-app.listen(3000, () => {
-  console.log('app is running on port 3000')
-})
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
