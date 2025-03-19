@@ -8,7 +8,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "This is the backend server for the Smart-Brain face recognition app. It handles user authentication, image processing, and database operations using Node.js, Express, PostgreSQL, and the Clarifai API.",
   "devDependencies": {
     "nodemon": "^3.1.9"
   },
@@ -22,5 +22,13 @@
     "knex": "^3.1.0",
     "node-fetch": "^2.7.0",
     "pg": "^8.14.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Elen23-Hub/Smart-brain-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Elen23-Hub/Smart-brain-server/issues"
+  },
+  "homepage": "https://github.com/Elen23-Hub/Smart-brain-server#readme"
 }
