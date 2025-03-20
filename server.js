@@ -22,7 +22,7 @@ const db = knex({
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
 app.use(cors({
-  origin: 'https://pythia-btyu.onrender.com',  // Update this with your frontend URL
+  origin: '*',  
   methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Allow these methods
   credentials: true  // Allow credentials like cookies (if necessary)
 }));
