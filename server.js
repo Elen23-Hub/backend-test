@@ -25,7 +25,7 @@ const db = knex({
   connection: {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
-    password: 12345,   //process.env.DB_PASSWORD,
+    password: "12345",   //process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     port: process.env.DB_PORT,
     ssl: {
