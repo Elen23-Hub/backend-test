@@ -25,11 +25,11 @@ const db = knex({
   connection: {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
-    password: "12345",   //process.env.DB_PASSWORD,
+    password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     port: process.env.DB_PORT,
     ssl: {
-      rejectUnauthorized: false 
+      rejectUnauthorized: true, // Set to true for secure connection. It was false in the original code, as the SSL parameter was necessary for AWS deployment. 
     }
   },
 });
@@ -37,7 +37,7 @@ const db = knex({
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
 app.use(cors({
-  origin: '*',  
+  origin: 'http://localhost:5173', // Allow requests from this origin (your frontend),instead of '*'.  
   methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Allow these methods
   credentials: true  // Allow credentials like cookies (if necessary)
 }));
@@ -50,13 +50,6 @@ app.put('/image', (req,res) => {image.handleImage(req, res, db)})  //When submit
 
 // POST route for image URL
 app.post('/imageurl', (req, res) => {imageurl.handleApiCall(req, res)}) // Pass input and res to handleApiCall function
-
-// Intentional vulnerability: Open Redirect Vulnerability for SAST testing
-app.get('/redirect', (req, res) => {
-  const target = req.query.url;
-  return res.redirect(target); // No validation - vulnerable
-});
-
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
