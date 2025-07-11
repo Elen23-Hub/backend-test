@@ -10,17 +10,16 @@
   "license": "ISC",
   "description": "This is the backend server for the Smart-Brain face recognition app. It handles user authentication, image processing, and database operations using Node.js, Express, PostgreSQL, and the Clarifai API.",
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.0.0"           
   },
   "dependencies": {
-    "axios": "^1.8.3",
-    "bcryptjs": "^3.0.2",
+    "bcryptjs": "^2.4.3",          
     "clarifai": "^2.9.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
-    "express": "^4.21.2",
+    "express": "^4.20.0", 
     "knex": "^3.1.0",
-    "node-fetch": "^2.7.0",
+    "node-fetch": "2.6.7",        
     "pg": "^8.14.0"
   },
   "repository": {

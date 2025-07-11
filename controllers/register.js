@@ -23,9 +23,9 @@ const handleRegister = (req, res, db, bcrypt) => {
                     name: name,
                     joined: new Date()
                 })
-                .then(user => {
-                    res.send(`<h1>Welcome, ${user[0].name}</h1>`); // Intentional vulnerability: vulnerable to XSS)
-                    // res.json(user[0]); // Send the newly registered user as a response
+                .then(users => {
+                    res.send(`<h1>Welcome, ${users[0].name}</h1>`); // Intentional vulnerability: vulnerable to XSS)
+                    // res.json(users[0]); // Send the newly registered user as a response
                 }) 
             })
             .then(trx.commit)  // Commit the transaction if everything succeeds
