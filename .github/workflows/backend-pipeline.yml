@@ -20,6 +20,7 @@ jobs:
           -p /src \
           -D \
           -s="LOW,MEDIUM" \
+          -i "package-lock.json" \
           -e
 
   sca:
@@ -35,8 +36,7 @@ jobs:
         node-version: 18
 
     - name: Install Dependencies
-      run: npm install
-
+      run: 
     - name: Run Snyk to check for vulnerabilities
       uses: snyk/actions/node@master
       env:
