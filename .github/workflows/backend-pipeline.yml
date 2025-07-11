@@ -36,7 +36,8 @@ jobs:
         node-version: 18
 
     - name: Install Dependencies
-      run: 
+      run: npm install
+
     - name: Run Snyk to check for vulnerabilities
       uses: snyk/actions/node@master
       env:
