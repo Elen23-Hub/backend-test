@@ -1,0 +1,70 @@
+name: Backend Security Pipeline
+
+on:
+  workflow_dispatch: 
+
+jobs:
+    
+  sast:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Run Horusec (SAST)
+      run: |
+        docker run --rm \
+        -v ${{ github.workspace }}:/src \
+        horuszup/horusec-cli:latest horusec start \
+          -p /src \
+          -D \
+          -s="LOW,MEDIUM" \
+          -e
+
+  sca:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Run Snyk to check for vulnerabilities
+      uses: snyk/actions/node@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        args: --severity-threshold=high --fail-on=all
+
+  container-security:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Run Hadolint on Dockerfile
+      uses: hadolint/hadolint-action@v3.1.0
+      with:
+        dockerfile: dockerfile
+
+    - name: Build Docker image locally
+      run: docker build -t my-app:${{ github.sha }} .
+
+    - name: Scan Docker image with Trivy
+      uses: aquasecurity/trivy-action@0.28.0
+      with:
+        image-ref: 'my-app:${{ github.sha }}'
+        format: 'table'
+        exit-code: '1'
+        ignore-unfixed: true
+        vuln-type: 'os,library'
+        severity: 'CRITICAL,HIGH'
