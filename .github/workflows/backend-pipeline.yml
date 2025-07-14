@@ -20,9 +20,7 @@ jobs:
           -p /src \
           -D \
           -s="LOW,MEDIUM" \
-          -i "package-lock.json" \
           -e
-          --config-file-path /src/.horusecignore
 
   sca:
     runs-on: ubuntu-latest
