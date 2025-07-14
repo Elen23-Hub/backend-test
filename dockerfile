@@ -3,7 +3,8 @@ FROM node:20-alpine3.22
 WORKDIR /app
 RUN addgroup -S appuser && adduser -S appuser -G appuser
 COPY package*.json ./
-RUN npm install 
+RUN rm -rf node_modules package-lock.json && \
+    npm install --omit=dev
 COPY . .
 USER appuser
 EXPOSE 3000
