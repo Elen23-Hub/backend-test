@@ -1,10 +1,10 @@
-#FROM node:20-alpine
-FROM node:20-slim
+FROM node:20-alpine
+#FROM node:20-slim
 WORKDIR /app
 RUN addgroup -S appuser && adduser -S appuser -G appuser
 COPY package*.json ./
 RUN npm install && \
-    apk add --no-cache curl
+    apk add --no-cache curl=8.4.0-r0
 COPY . .
 USER appuser
 EXPOSE 3000
