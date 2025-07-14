@@ -13,14 +13,16 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Run Horusec (SAST)
-      id: run_horusec
-      uses: fike/horusec-action@v0.1
-      with:
-         arguments: >
-            -p="./" 
-            --ignore="**/package-lock.json, **/node_modules/**" 
-            -s="LOW,MEDIUM" 
-            -e
+      run: |
+        docker run --rm \
+        -v ${{ github.workspace }}:/src \
+        horuszup/horusec-cli:latest horusec start \
+            -p /src \
+            -e \
+            -D \
+            -s="LOW,MEDIUM" \
+            --ignore="**/package-lock.json,**/node_modules/**"
+
 
   sca:
     runs-on: ubuntu-latest
