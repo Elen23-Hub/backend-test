@@ -3,8 +3,8 @@ FROM node:16-alpine3.15
 WORKDIR /app
 RUN addgroup -S appuser && adduser -S appuser -G appuser
 COPY package*.json ./
-RUN npm install \ 
-    apk add --no-cache curl 
+RUN npm install -g nodemon@3.0.0 && \ 
+    apk add --no-cache curl=8.14.1-r0
 COPY . .
 USER appuser
 EXPOSE 3000
