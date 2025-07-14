@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:20-alpine3.22
 #FROM node:20-slim
 WORKDIR /app
 RUN addgroup -S appuser && adduser -S appuser -G appuser
