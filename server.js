@@ -51,12 +51,6 @@ app.put('/image', (req,res) => {image.handleImage(req, res, db)})  //When submit
 // POST route for image URL
 app.post('/imageurl', (req, res) => {imageurl.handleApiCall(req, res)}) // Pass input and res to handleApiCall function
 
-// Intentional vulnerability for testing 55-58 -sast
-app.get('/redirect', (req, res) => {
-  const target = req.query.target;
-  return res.redirect(target);
-});
-
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
