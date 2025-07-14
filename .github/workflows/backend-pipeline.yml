@@ -12,19 +12,15 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Debug .horusecignore
-      run: cat .horusecignore
-
-
     - name: Run Horusec (SAST)
-      run: |
-        docker run --rm \
-        -v ${{ github.workspace }}:/src \
-        horuszup/horusec-cli:latest horusec start \
-          -p /src \
-          -D \
-          -s="LOW,MEDIUM" \
-          -e
+      id: run_horusec
+      uses: fike/horusec-action@v0.1
+      with:
+         arguments: >
+            -p="./" 
+            --ignore="**/package-lock.json, **/node_modules/**" 
+            -s="LOW,MEDIUM" 
+            -e
 
   sca:
     runs-on: ubuntu-latest
